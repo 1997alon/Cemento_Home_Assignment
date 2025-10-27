@@ -23,8 +23,10 @@ export function tableReducer(state, action) {
 
     case ACTIONS.UPDATE_CELL: {
       const { rowId, colId, value } = action.payload;
-      if (!rowId || !colId) return state;
-      if (state.dataMap[rowId][colId] === value) return state;
+      const row = state.dataMap[rowId];
+      if (!row || !colId) return state;      
+      if (row[colId] === value) return state; 
+      
       return {
         ...state,
         dataMap: {
