@@ -21,23 +21,22 @@ export function tableReducer(state, action) {
       };
     }
 
-    case ACTIONS.UPDATE_CELL: {
-      const { rowId, colId, value } = action.payload;
-      const row = state.dataMap[rowId];
-      if (!row || !colId) return state;      
-      if (row[colId] === value) return state; 
-      
-      return {
-        ...state,
-        dataMap: {
-          ...state.dataMap,
-          [rowId]: {
-            ...state.dataMap[rowId], 
-            [colId]: value
-          }
+  case ACTIONS.UPDATE_CELL: {
+    const { rowId, colId, value } = action.payload;
+    const row = state.dataMap[rowId];
+    if (!row || row[colId] === value) return state;
+    
+    return {
+      ...state,
+      dataMap: {
+        ...state.dataMap, 
+        [rowId]: {
+          ...row,        
+          [colId]: value
         }
-      };
-    }
+      }
+    };
+  }
 
     case ACTIONS.SET_VISIBLE_COLUMNS: {
       const { columnIds } = action.payload;
